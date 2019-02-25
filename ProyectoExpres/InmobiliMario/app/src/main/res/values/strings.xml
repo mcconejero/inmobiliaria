@@ -27,4 +27,9 @@
     <string name="name">Name</string>
     <string name="credentials">I have read and agree to the terms and conditions</string>
     <string name="repeat_password">Repeat Password</string>
+    <string name="title">Title</string>
+    <string name="province">Province</string>
+    <string name="rooms">Rooms</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
 </resources>
