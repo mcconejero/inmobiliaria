@@ -3,6 +3,8 @@ package com.triana.salesianos.inmobilimario.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Locale;
+
 public class PostResponse {
 
     @SerializedName("id")
@@ -25,7 +27,7 @@ public class PostResponse {
     private double size;
     @SerializedName("categoryId")
     @Expose
-    private String categoryId;
+    private CategoryResponse categoryId;
     @SerializedName("address")
     @Expose
     private String address;
@@ -51,7 +53,7 @@ public class PostResponse {
     public PostResponse() {
     }
 
-    public PostResponse(String id, String title, String description, double price, int rooms, double size, String categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
+    public PostResponse(String id, String title, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -116,12 +118,13 @@ public class PostResponse {
         this.size = size;
     }
 
-    public String getCategoryId() {
+    public CategoryResponse getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public PostResponse setCategoryId(CategoryResponse categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     public String getAddress() {

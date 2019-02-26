@@ -11,13 +11,13 @@ import retrofit2.http.Path;
 
 public interface PostService {
 
-    @GET("posts")
-    Call<ResponseContainer<PostResponse>> listPost();
+    @GET("properties")
+    Call<ResponseContainer<PostResponse>> getListPost();
 
-    @GET("posts/{id}")
+    @GET("properties/{id}")
     Call<PostResponse> onePost(@Path("id") String id);
 
-    @DELETE("posts/{id}")
+    @DELETE("properties/{id}")
     Call<ResponseBody> deletePost(@Path("id") String id);
 
 

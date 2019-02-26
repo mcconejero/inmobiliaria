@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
@@ -19,6 +20,9 @@ import com.triana.salesianos.inmobilimario.models.ResponseContainer;
 import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
 import com.triana.salesianos.inmobilimario.retrofit.generator.TipoAutenticacion;
 import com.triana.salesianos.inmobilimario.retrofit.services.PostService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,8 +42,8 @@ public class PostFragment extends Fragment {
     private int mColumnCount = 1;
     private PostInteractionListener mListener;
     private RecyclerView recyclerView;
-    private Context ctx;
-    private SwipeRefreshLayout swipe;
+    private List<PostResponse> postList;
+    private MyPostRecyclerViewAdapter adapter;
 
     public PostFragment() {
     }
@@ -66,7 +70,6 @@ public class PostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_list, container, false);
-        swipe = view.findViewById(R.id.swipePosts);
 
         // Set the adapter
             if (view instanceof SwipeRefreshLayout) {
@@ -77,6 +80,40 @@ public class PostFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+                postList = new ArrayList<>();
+
+                /**
+                 * RELLENAR inmuebleList
+                 */
+                PostService service = ServiceGenerator.createService(PostService.class);
+                Call<ResponseContainer<PostResponse>> call = service.getListPost();
+
+                call.enqueue(new Callback<ResponseContainer<PostResponse>>() {
+
+                    @Override
+                    public void onResponse(Call<ResponseContainer<PostResponse>> call, Response<ResponseContainer<PostResponse>> response) {
+                        if (response.code() != 200) {
+                            Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
+                        } else {
+                            postList = response.body().getRows();
+
+                            adapter = new MyPostRecyclerViewAdapter(
+                                    ctx,
+                                    postList,
+                                    mListener
+                            );
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseContainer<PostResponse>> call, Throwable t) {
+                        Log.e("NetworkFailure", t.getMessage());
+                        Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                });
         }
         return view;
     }
@@ -99,30 +136,4 @@ public class PostFragment extends Fragment {
         mListener = null;
     }
 
-    public void refreshData() {
-
-        PostService service = ServiceGenerator.createService(PostService.class,
-                UtilToken.getToken(ctx), TipoAutenticacion.JWT);
-
-        Call<ResponseContainer<PostResponse>> call = service.listPost();
-        call.enqueue(new Callback<ResponseContainer<PostResponse>>() {
-            @Override
-            public void onResponse(Call<ResponseContainer<PostResponse>> call, Response<ResponseContainer<PostResponse>> response) {
-                if (response.isSuccessful()) {
-                    recyclerView.setAdapter(new MyPostRecyclerViewAdapter(ctx, response.body().getRows(), mListener));
-                } else {
-                    // Toast
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseContainer<PostResponse>> call, Throwable t) {
-                // Toast
-                Log.i("onFailure", "error en retrofit");
-            }
-        });
-
-    }
 }
