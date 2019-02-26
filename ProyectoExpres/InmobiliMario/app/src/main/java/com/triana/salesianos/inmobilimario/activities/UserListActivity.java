@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.models.ResponseContainer;
 import com.triana.salesianos.inmobilimario.models.User;
 import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
 import com.triana.salesianos.inmobilimario.retrofit.generator.TipoAutenticacion;
 import com.triana.salesianos.inmobilimario.retrofit.services.OtherService;
-import com.triana.salesianos.inmobilimario.UtilToken;
 
 import java.util.List;
 
