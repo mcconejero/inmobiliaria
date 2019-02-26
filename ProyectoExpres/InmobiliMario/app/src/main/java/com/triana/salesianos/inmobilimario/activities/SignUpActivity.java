@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.models.LoginResponse;
 import com.triana.salesianos.inmobilimario.models.SignUp;

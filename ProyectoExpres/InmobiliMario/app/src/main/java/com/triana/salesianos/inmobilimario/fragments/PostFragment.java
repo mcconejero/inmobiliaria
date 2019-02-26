@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.models.PostResponse;
 import com.triana.salesianos.inmobilimario.models.ResponseContainer;
