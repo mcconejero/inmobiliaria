@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.models.PostResponse;
 
 import java.util.List;

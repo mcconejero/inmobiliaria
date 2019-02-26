@@ -13,11 +13,11 @@ import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.models.LoginResponse;
-import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
 import com.triana.salesianos.inmobilimario.retrofit.services.LoginService;
-import com.triana.salesianos.inmobilimario.UtilToken;
 
 public class LoginActivity extends AppCompatActivity {
 
