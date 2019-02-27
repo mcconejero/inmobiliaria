@@ -1,7 +1,10 @@
 package com.triana.salesianos.inmobilimario.fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +23,7 @@ import com.triana.salesianos.inmobilimario.models.ResponseContainer;
 import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
 import com.triana.salesianos.inmobilimario.retrofit.generator.TipoAutenticacion;
 import com.triana.salesianos.inmobilimario.retrofit.services.PostService;
+import com.triana.salesianos.inmobilimario.viewmodel.PostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,8 @@ public class PostFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<PostResponse> postList;
     private MyPostRecyclerViewAdapter adapter;
+    private Context ctx;
+    private PostViewModel viewModel;
 
     public PostFragment() {
     }
@@ -66,58 +72,37 @@ public class PostFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                         Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_list, container, false);
 
-        // Set the adapter
-            if (view instanceof SwipeRefreshLayout) {
+        if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            recyclerView = view.findViewById(R.id.listPosts);
+            recyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-                postList = new ArrayList<>();
-
-                /**
-                 * RELLENAR inmuebleList
-                 */
-                PostService service = ServiceGenerator.createService(PostService.class);
-                Call<ResponseContainer<PostResponse>> call = service.getListPost();
-
-                call.enqueue(new Callback<ResponseContainer<PostResponse>>() {
-
-                    @Override
-                    public void onResponse(Call<ResponseContainer<PostResponse>> call, Response<ResponseContainer<PostResponse>> response) {
-                        if (response.code() != 200) {
-                            Toast.makeText(getActivity(), "Error en petición", Toast.LENGTH_SHORT).show();
-                        } else {
-                            postList = response.body().getRows();
-
-                            adapter = new MyPostRecyclerViewAdapter(
-                                    ctx,
-                                    postList,
-                                    mListener
-                            );
-                            recyclerView.setAdapter(adapter);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseContainer<PostResponse>> call, Throwable t) {
-                        Log.e("NetworkFailure", t.getMessage());
-                        Toast.makeText(getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                });
+            postList = new ArrayList<>();
+            adapter = new MyPostRecyclerViewAdapter(getActivity(), postList, mListener, R.layout.fragment_post);
+            recyclerView.setAdapter(adapter);
+            throwViewModel();
         }
         return view;
-    }
+}
 
+    private void throwViewModel() {
+        viewModel = ViewModelProviders.of(getActivity()).get(PostViewModel.class);
+        viewModel.getListPosts().observe(getActivity(), new Observer<List<PostResponse>>() {
+            @Override
+            public void onChanged(@Nullable List<PostResponse> posts) {
+                adapter.setNewPosts(posts);
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {

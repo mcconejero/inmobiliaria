@@ -83,4 +83,15 @@
             tools:ignore="VectorDrawableCompat" />
     </android.support.constraint.ConstraintLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        app:backgroundTint="#FF6262"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
 </android.support.v7.widget.CardView>

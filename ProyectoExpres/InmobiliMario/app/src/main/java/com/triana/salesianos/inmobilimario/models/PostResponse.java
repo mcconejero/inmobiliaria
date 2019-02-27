@@ -13,6 +13,9 @@ public class PostResponse {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("photos")
+    @Expose
+    private String[] photos;
     @SerializedName("description")
     @Expose
     private String description;
@@ -53,9 +56,10 @@ public class PostResponse {
     public PostResponse() {
     }
 
-    public PostResponse(String id, String title, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
+    public PostResponse(String id, String title, String[] photos, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
+        this.photos = photos;
         this.description = description;
         this.price = price;
         this.rooms = rooms;
@@ -80,6 +84,15 @@ public class PostResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public String[] getPhotos() {
+        return photos;
+    }
+
+    public PostResponse setPhotos(String[] photos) {
+        this.photos = photos;
+        return this;
     }
 
     public void setTitle(String title) {

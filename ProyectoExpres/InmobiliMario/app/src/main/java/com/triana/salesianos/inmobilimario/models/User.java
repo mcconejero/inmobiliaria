@@ -28,19 +28,12 @@ public class User {
     public User() {
     }
 
-    /**
-     * @param picture
-     * @param id
-     * @param email
-     * @param name
-     */
-    public User(String id, String name, String picture, String email) {
-        super();
+    public User(String id, String name, String picture, String email, String role) {
         this.id = id;
         this.name = name;
         this.picture = picture;
         this.email = email;
-        this.role = "user";
+        this.role = role;
     }
 
     public String getId() {
@@ -59,13 +52,9 @@ public class User {
         this.name = name;
     }
 
-    public String getPicture() {
-        return picture;
-    }
+    public String getPicture() { return picture; }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+    public User setPicture(String picture) { this.picture = picture; return this;}
 
     public String getEmail() {
         return email;
