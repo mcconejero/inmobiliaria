@@ -4,7 +4,6 @@
     <string name="title_map">Map</string>
     <string name="title_profile">Profile</string>
     <string name="title_activity_login">Sign in</string>
-    <!-- Strings related to login and Sign up-->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -14,8 +13,12 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
+<<<<<<< HEAD
         completions."
     </string>
+=======
+        completions."</string>
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
     <string name="sharedpreferences_filename">login</string>
     <string name="jwt_key">JWT_KEY</string>
     <string name="jwt_id">JWT_ID</string>
@@ -28,12 +31,22 @@
     <string name="repeat_password">Repeat Password</string>
     <string name="title">Title</string>
     <string name="province">Province</string>
-    <string name="rooms">Rooms</string>
     <string name="description">Description</string>
     <string name="price">Price</string>
+<<<<<<< HEAD
     <string name="category">Category</string>
     <string name="size">Size</string>
     <string name="zipcode">Zipcode</string>
     <string name="city">City</string>
     <string name="address">Address</string>
+=======
+    <string name="change_picture">Change Picture</string>
+    <string name="logout">Log Out</string>
+    <string name="favourites">Favourites</string>
+    <string name="my_posts">My Posts</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rooms">2</string>
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 </resources>

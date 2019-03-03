@@ -20,9 +20,10 @@ import retrofit2.http.QueryMap;
 
 public interface PostService {
 
-    @GET("posts")
-    Call<ResponseContainer<PostResponse>> listPost();
+    @GET("properties")
+    Call<ResponseContainer<PostResponse>> getListPost();
 
+<<<<<<< HEAD
     @GET("posts/auth")
     Call<ResponseContainer<PostResponse>> listPostAuth(@QueryMap Map<String, String> options);
 
@@ -52,6 +53,13 @@ public interface PostService {
 
     @DELETE("posts/fav/{id}")
     Call<PostResponse> deleteFav(@Path("id") String id);
+=======
+    @GET("properties/{id}")
+    Call<PostResponse> onePost(@Path("id") String id);
+
+    @DELETE("properties/{id}")
+    Call<ResponseBody> deletePost(@Path("id") String id);
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 
 
 }

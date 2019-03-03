@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://authentication-fppitlaelx.now.sh/";
-    public static String MASTER_KEY = "lNeTI8waAqmpUZa7QSiLv53rqSnlsldv";
+    private static final String BASE_URL = "https://morning-chamber-30708.herokuapp.com";
+    public static String MASTER_KEY = "hzasFUC4txHXVHHWvjkR2R7UxQ6kzBlw";
 
     public static String jwtToken = null;
 

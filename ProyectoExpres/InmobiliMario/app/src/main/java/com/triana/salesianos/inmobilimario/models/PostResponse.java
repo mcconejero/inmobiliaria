@@ -3,8 +3,12 @@ package com.triana.salesianos.inmobilimario.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.util.Locale;
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 
 public class PostResponse {
 
@@ -14,6 +18,9 @@ public class PostResponse {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("photos")
+    @Expose
+    private String[] photos;
     @SerializedName("description")
     @Expose
     private String description;
@@ -60,9 +67,14 @@ public class PostResponse {
     public PostResponse() {
     }
 
+<<<<<<< HEAD
     public PostResponse(String id, String title, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt, List<String> favs, List<String> photos) {
+=======
+    public PostResponse(String id, String title, String[] photos, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         this.id = id;
         this.title = title;
+        this.photos = photos;
         this.description = description;
         this.price = price;
         this.rooms = rooms;
@@ -89,6 +101,15 @@ public class PostResponse {
 
     public String getTitle() {
         return title;
+    }
+
+    public String[] getPhotos() {
+        return photos;
+    }
+
+    public PostResponse setPhotos(String[] photos) {
+        this.photos = photos;
+        return this;
     }
 
     public void setTitle(String title) {
@@ -131,8 +152,13 @@ public class PostResponse {
         return categoryId;
     }
 
+<<<<<<< HEAD
     public void setCategoryId(CategoryResponse categoryId) {
+=======
+    public PostResponse setCategoryId(CategoryResponse categoryId) {
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         this.categoryId = categoryId;
+        return this;
     }
 
     public String getAddress() {

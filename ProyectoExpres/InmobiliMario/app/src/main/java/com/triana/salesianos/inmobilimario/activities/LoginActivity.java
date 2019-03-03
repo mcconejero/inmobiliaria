@@ -1,28 +1,32 @@
 package com.triana.salesianos.inmobilimario.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.util.SortedList;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.triana.salesianos.inmobilimario.R;
+import com.triana.salesianos.inmobilimario.UtilToken;
+import com.triana.salesianos.inmobilimario.models.LoginResponse;
+import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
+import com.triana.salesianos.inmobilimario.retrofit.services.LoginService;
+
 import okhttp3.Credentials;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.triana.salesianos.inmobilimario.models.LoginResponse;
-import com.triana.salesianos.inmobilimario.R;
-import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
-import com.triana.salesianos.inmobilimario.retrofit.services.LoginService;
-import com.triana.salesianos.inmobilimario.UtilToken;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     Button btn_login, btn_signup;
+    FloatingActionButton fabBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,16 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         btn_login = findViewById(R.id.btnLogin);
         btn_signup = findViewById(R.id.btnSignUp);
+
+        fabBack = findViewById(R.id.fabBack);
+
+        fabBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 Call<LoginResponse> call = service.doLogin(credentials);
 
                 call.enqueue(new Callback<LoginResponse>() {
+
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.code() != 201) {
@@ -56,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             UtilToken.setToken(LoginActivity.this, response.body().getToken());
 
-                            startActivity(new Intent(LoginActivity.this, UserListActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                     }
 

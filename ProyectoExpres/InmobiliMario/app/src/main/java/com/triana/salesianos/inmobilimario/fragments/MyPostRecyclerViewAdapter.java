@@ -2,16 +2,26 @@ package com.triana.salesianos.inmobilimario.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.support.v7.app.AlertDialog;
+=======
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+<<<<<<< HEAD
+=======
+import com.bumptech.glide.request.target.SimpleTarget;
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.models.PostResponse;
@@ -19,6 +29,7 @@ import com.triana.salesianos.inmobilimario.retrofit.services.PostService;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,10 +38,21 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
 
     private final List<PostResponse> mValues;
     private final PostFragment.OnListFragmentInteractionListener mListener;
+=======
+
+public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecyclerViewAdapter.ViewHolder> {
+
+    private List<PostResponse> mValues;
+    private final PostInteractionListener mListener;
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
     private Context ctx;
     PostService service;
 
+<<<<<<< HEAD
     public MyPostRecyclerViewAdapter(Context ctx, List<PostResponse> items, PostFragment.OnListFragmentInteractionListener listener) {
+=======
+    public MyPostRecyclerViewAdapter(Context ctx, List<PostResponse> items, PostInteractionListener listener, int layout) {
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         mValues = items;
         mListener = listener;
         this.ctx = ctx;
@@ -48,6 +70,7 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
         String jwt = UtilToken.getToken(ctx);
         holder.mItem = mValues.get(position);
         holder.mTitle.setText(mValues.get(position).getTitle());
+<<<<<<< HEAD
         holder.mPrice.setText((int) mValues.get(position).getPrice());
         holder.mRooms.setText(mValues.get(position).getRooms());
         holder.mProvince.setText(mValues.get(position).getProvince());
@@ -126,6 +149,26 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
 //                        Toast.makeText(contexto, "Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
+=======
+        holder.mRooms.setText(String.valueOf(mValues.get(position).getRooms()));
+        holder.mPrice.setText(String.valueOf(mValues.get(position).getPrice()));
+        holder.mProvince.setText(mValues.get(position).getProvince());
+
+        if (holder.mItem.getPhotos() != null) {
+            Glide
+                    .with(ctx)
+                    .load(holder.mItem.getPhotos()[0])
+                    .into(holder.mPicture);
+        }
+        holder.itemView.setTag(mValues.get(position));
+        /*holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostResponse item = (PostResponse) v.getTag();
+                Intent intent = new Intent(ctx, PostDetailActivity.class);
+                intent.putExtra(PostDetailActivity.ARG_ITEM_ID, item.getId());
+                ctx.startActivity(intent);
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
             }
             c = 0;
             holder.fav.setImageResource(R.drawable.ic_no_fav);
@@ -153,6 +196,11 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
         });
     }
 
+    public void setNewPosts(List<PostResponse> posts){
+        this.mValues = posts;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mValues.size();
@@ -161,22 +209,29 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mTitle;
-        public final TextView mDescription;
         public final TextView mRooms;
         public final TextView mPrice;
         public final TextView mProvince;
+<<<<<<< HEAD
         public final TextView mPicture;
+=======
+        public final ImageView mPicture;
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         public PostResponse mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mTitle = view.findViewById(R.id.title);
-            mDescription = view.findViewById(R.id.description);
             mRooms = view.findViewById(R.id.rooms);
             mPrice = view.findViewById(R.id.price);
             mProvince = view.findViewById(R.id.province);
+<<<<<<< HEAD
             mPicture = view.findViewById(R.id.photo);
+=======
+            mPicture = view.findViewById(R.id.picture);
+
+>>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         }
     }
 }
