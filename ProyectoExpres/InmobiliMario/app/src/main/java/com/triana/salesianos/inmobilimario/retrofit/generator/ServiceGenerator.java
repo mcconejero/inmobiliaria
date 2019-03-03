@@ -26,9 +26,8 @@ public class ServiceGenerator {
                     .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = null;
-    private static TipoAutenticacion tipoActual = null;
+    private static AuthType currentType = null;
 
-    // Interceptor que imprime por el Log todas las peticiones y respuestas
     private static HttpLoggingInterceptor logging =
             new HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -36,63 +35,35 @@ public class ServiceGenerator {
     private static OkHttpClient.Builder httpClientBuilder =
             new OkHttpClient.Builder();
 
-    /**
-     * Crea un servicio sin autenticación básica o JWT
-     * Tan solo agrega la MASTER_KEY como un parámetro con nombre access_token
-     *
-     * @param serviceClass Tipo de servicio a crear
-     * @return El servicio ya creado
-     */
     public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null, TipoAutenticacion.SIN_AUTENTICACION);
+        return createService(serviceClass, null, AuthType.NO_AUTH);
     }
 
-    /**
-     * Crea un servicio con autenticación básica.
-     * - Agrega la MASTER_KEY como un parámetro en la query con nombre access_token
-     * - Añade el encabezado Authorizacion Basic asdñljkadsfñlkjfadsñklsa
-     *
-     *
-     * @param serviceClass
-     * @param username
-     * @param password
-     * @return
-     */
     public static <S> S createService(Class<S> serviceClass, String username, String password) {
         if (!(username.isEmpty() || password.isEmpty())) {
             String credentials = Credentials.basic(username, password);
-            return createService(serviceClass, credentials, TipoAutenticacion.BASIC);
+            return createService(serviceClass, credentials, AuthType.BASIC);
         }
-        return createService(serviceClass, null, TipoAutenticacion.SIN_AUTENTICACION);
+        return createService(serviceClass, null, AuthType.NO_AUTH);
     }
 
 
-    public static <S> S createService(Class<S> serviceClass, final String authtoken, final TipoAutenticacion tipo) {
-
-        /*
-            Si la instancia de retrofit es nula, quiere decir que es la primera vez que vamos a generar el objeto,
-            con lo cual, tenemos que realizar la generación del mismo.
-            Si la instancia de retrofit no es nula, pero el tipoActual del servicio generado no es el mismo que el
-            solicitado, necesitamos generarlo de nuevo (por ejemplo, si actualmente tenemos autenticación básica,
-            y se requiere la autenticación por JWT).
-         */
+    public static <S> S createService(Class<S> serviceClass, final String authtoken, final AuthType type) {
 
 
-
-        if (retrofit == null || tipoActual != tipo ) {
+        if (retrofit == null || currentType != type) {
 
             httpClientBuilder.interceptors().clear();
 
             httpClientBuilder.addInterceptor(logging);
 
-            // Interceptor que añade dos encabezados
             httpClientBuilder.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
 
                     Request request = original.newBuilder()
-                            .header("User-Agent", "LoginApp")
+                            .header("User-Agent", "InmoApp")
                             .header("Accept", "application/json")
                             .method(original.method(), original.body())
                             .build();
@@ -101,8 +72,8 @@ public class ServiceGenerator {
                 }
             });
 
-            if (tipo == TipoAutenticacion.SIN_AUTENTICACION || tipo == TipoAutenticacion.BASIC ) {
-                // Añadimos el interceptor de la master key
+            if (type == AuthType.NO_AUTH || type == AuthType.BASIC) {
+
                 httpClientBuilder.addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
@@ -116,7 +87,6 @@ public class ServiceGenerator {
                         Request request = original.newBuilder()
                                 .url(url)
                                 .build();
-
 
                         return chain.proceed(request);
                     }
@@ -132,7 +102,7 @@ public class ServiceGenerator {
                         Request original = chain.request();
 
                         String token = null;
-                        if (tipo == TipoAutenticacion.JWT && !authtoken.startsWith("Bearer "))
+                        if (type == AuthType.JWT && !authtoken.startsWith("Bearer "))
                             token = "Bearer " + authtoken;
                         else
                             token = authtoken;
@@ -147,7 +117,7 @@ public class ServiceGenerator {
                 });
             }
 
-            tipoActual = tipo;
+            currentType = type;
 
             builder.client(httpClientBuilder.build());
             retrofit = builder.build();
@@ -155,7 +125,4 @@ public class ServiceGenerator {
 
         return retrofit.create(serviceClass);
     }
-
-
-
 }

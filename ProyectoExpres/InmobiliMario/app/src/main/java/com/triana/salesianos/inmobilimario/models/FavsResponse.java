@@ -1,67 +1,33 @@
 package com.triana.salesianos.inmobilimario.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostResponse {
+public class FavsResponse implements Serializable {
 
-    @SerializedName("id")
-    @Expose
     private String id;
-    @SerializedName("title")
-    @Expose
+    private String ownerId;
     private String title;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("price")
-    @Expose
-    private double price;
-    @SerializedName("rooms")
-    @Expose
-    private int rooms;
-    @SerializedName("size")
-    @Expose
-    private double size;
-    @SerializedName("categoryId")
-    @Expose
+    private Long price;
+    private Long rooms;
+    private Long size;
     private CategoryResponse categoryId;
-    @SerializedName("address")
-    @Expose
     private String address;
-    @SerializedName("zipcode")
-    @Expose
     private String zipcode;
-    @SerializedName("city")
-    @Expose
     private String city;
-    @SerializedName("province")
-    @Expose
     private String province;
-    @SerializedName("loc")
-    @Expose
     private String loc;
-    @SerializedName("createdAt")
-    @Expose
-    private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-    @SerializedName("favs")
-    @Expose
-    private List<String> favs = new ArrayList<>();
-    @SerializedName("photos")
-    @Expose
     private List<String> photos = new ArrayList<>();
 
-    public PostResponse() {
+    public FavsResponse() {
+
     }
 
-    public PostResponse(String id, String title, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt, List<String> favs, List<String> photos) {
+    public FavsResponse(String id, String ownerId, String title, String description, Long price, Long rooms, Long size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, List<String> photos) {
         this.id = id;
+        this.ownerId = ownerId;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -73,9 +39,6 @@ public class PostResponse {
         this.city = city;
         this.province = province;
         this.loc = loc;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.favs = favs;
         this.photos = photos;
     }
 
@@ -85,6 +48,14 @@ public class PostResponse {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
@@ -103,27 +74,19 @@ public class PostResponse {
         this.description = description;
     }
 
-    public double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
-    public int getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(int rooms) {
-        this.rooms = rooms;
-    }
-
-    public double getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(double size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 
@@ -175,28 +138,12 @@ public class PostResponse {
         this.loc = loc;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public Long getRooms() {
+        return rooms;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public List<String> getFavs() {
-        return favs;
-    }
-
-    public void setFavs(List<String> favs) {
-        this.favs = favs;
+    public void setRooms(Long rooms) {
+        this.rooms = rooms;
     }
 
     public List<String> getPhotos() {
@@ -206,4 +153,5 @@ public class PostResponse {
     public void setPhotos(List<String> photos) {
         this.photos = photos;
     }
+
 }

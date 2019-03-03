@@ -16,7 +16,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
     <string name="sharedpreferences_filename">login</string>
     <string name="jwt_key">JWT_KEY</string>
     <string name="jwt_id">JWT_ID</string>
@@ -32,4 +31,9 @@
     <string name="rooms">Rooms</string>
     <string name="description">Description</string>
     <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="size">Size</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
 </resources>
