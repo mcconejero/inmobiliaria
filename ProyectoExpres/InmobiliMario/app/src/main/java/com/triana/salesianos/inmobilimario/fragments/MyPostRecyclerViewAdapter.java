@@ -74,66 +74,66 @@ public class MyPostRecyclerViewAdapter extends RecyclerView.Adapter<MyPostRecycl
                 mListener.onListFragmentInteraction(holder.mItem);
             }
         });
+
         holder.mFav.setOnClickListener(v -> {
-            int c = 0;
 
-            if (c == 0) {
 
-                if (jwt == null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                    builder.setTitle("Add to favourites").setMessage("Do you want to add to favorites?");
-                    builder.setPositiveButton("Ok", (dialog, which) ->
-                            ctx.startActivity(new Intent(ctx, LoginActivity.class)));
-                    builder.setNegativeButton("Cancel", (dialog, id) -> {
-                        Log.d("Back", "Going back");
-                    });
-                    AlertDialog dialog = builder.create();
+            if (jwt == null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                builder.setTitle("Add to favourites").setMessage("Do you want to add to favorites?");
+                builder.setPositiveButton("Ok", (dialog, which) ->
+                        ctx.startActivity(new Intent(ctx, LoginActivity.class)));
+                builder.setNegativeButton("Cancel", (dialog, id) -> {
+                    Log.d("Back", "Going back");
+                });
+                AlertDialog dialog = builder.create();
 
-                    dialog.show();
-                } else {
-                    service = ServiceGenerator.createService(PostService.class, jwt, AuthType.JWT);
+                dialog.show();
+
+            } else {
+
+                service = ServiceGenerator.createService(PostService.class, jwt, AuthType.JWT);
+
+                if (holder.mFav.isEnabled() == true){
 
                     Call<PostResponse> call = service.addFav(holder.mItem.getId());
                     call.enqueue(new Callback<PostResponse>() {
-                        @Override
-                        public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
-                            if (response.code() != 201) {
-                                Toast.makeText(ctx, "Error in request", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ctx, "Added to favourites", Toast.LENGTH_LONG).show();
-                            }
+                    @Override
+                    public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(ctx, "Error in request", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ctx, "Added to favourites", Toast.LENGTH_LONG).show();
+                            holder.mFav.setImageResource(R.drawable.ic_full_fav);
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<PostResponse> call, Throwable t) {
-                            Toast.makeText(ctx, "Failure", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                c = 1;
-                holder.mFav.setImageResource(R.drawable.ic_full_fav);
-            } else {
-                service = ServiceGenerator.createService(PostService.class, jwt, AuthType.JWT);
+                    @Override
+                    public void onFailure(Call<PostResponse> call, Throwable t) {
+                        Toast.makeText(ctx, "Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                }else{
 
                 Call<PostResponse> call = service.deleteFav(holder.mItem.getId());
                 call.enqueue(new Callback<PostResponse>() {
                     @Override
                     public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                         if (response.code() != 200) {
+                            Toast.makeText(ctx, "Error in request", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ctx, "Deleted from favourites", Toast.LENGTH_LONG).show();
+                            holder.mFav.setImageResource(R.drawable.ic_empty_fav);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PostResponse> call, Throwable t) {
-//                        Toast.makeText(contexto, "Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-            c = 0;
-            holder.mFav.setImageResource(R.drawable.ic_empty_fav);
-
+        }
         });
 
         holder.mConstraintLayout.setOnClickListener(v -> {

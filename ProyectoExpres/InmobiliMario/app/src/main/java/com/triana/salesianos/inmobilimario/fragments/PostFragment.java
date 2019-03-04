@@ -126,7 +126,7 @@ public class PostFragment extends Fragment {
                 });
 
             } else {
-                service = ServiceGenerator.createService(PostService.class, jwt, AuthType.JWT);
+               service = ServiceGenerator.createService(PostService.class, jwt, AuthType.JWT);
 
                 Call<ResponseContainer<PostResponse>> call = service.listPostAuth(options);
                 call.enqueue(new Callback<ResponseContainer<PostResponse>>() {

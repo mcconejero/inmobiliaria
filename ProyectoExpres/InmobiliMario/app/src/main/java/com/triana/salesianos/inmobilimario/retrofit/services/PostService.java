@@ -23,7 +23,7 @@ public interface PostService {
     @GET("properties")
     Call<ResponseContainer<PostResponse>> getListPost(@QueryMap Map<String, String> option);
 
-    @GET("posts/auth")
+    @GET("properties/auth")
     Call<ResponseContainer<PostResponse>> listPostAuth(@QueryMap Map<String, String> options);
 
     @GET("properties")
@@ -38,8 +38,8 @@ public interface PostService {
     @GET("properties/{id}")
     Call<ResponseContainerTwo<PostResponse>> getOne(@Path("id") String id);
 
-    /*@POST("properties")
-    Call<AddPropertyDto> create (@Body AddPropertyDto property);*/
+    @POST("properties")
+    Call<PostResponse> create(@Body PostResponse property);
 
     @POST("properties/fav/{id}")
     Call<PostResponse> addFav (@Path("id") String id);

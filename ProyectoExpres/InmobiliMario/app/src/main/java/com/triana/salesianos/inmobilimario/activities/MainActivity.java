@@ -7,13 +7,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
+import com.triana.salesianos.inmobilimario.fragments.FavPostFragment;
 import com.triana.salesianos.inmobilimario.fragments.PostFragment;
 import com.triana.salesianos.inmobilimario.models.PostResponse;
 
-public class MainActivity extends AppCompatActivity implements PostFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PostFragment.OnListFragmentInteractionListener, FavPostFragment.OnListFragmentInteractionListener {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnLi
                             .commit();
                     return true;
                 case R.id.navigation_fav:
-
+                    f = new FavPostFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container, f)
+                            .commit();
                     return true;
                 case R.id.navigation_mine:
 
