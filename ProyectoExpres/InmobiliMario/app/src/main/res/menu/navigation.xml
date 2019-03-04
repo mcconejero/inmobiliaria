@@ -7,9 +7,14 @@
         android:title="@string/title_posts" />
 
     <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_map"
-        android:title="@string/title_map" />
+        android:id="@+id/navigation_fav"
+        android:icon="@drawable/ic_full_fav"
+        android:title="@string/title_fav" />
+
+    <item
+        android:id="@+id/navigation_mine"
+        android:icon="@drawable/ic_posts"
+        android:title="@string/title_mine" />
 
     <item
         android:id="@+id/navigation_profile"

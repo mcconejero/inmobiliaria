@@ -113,15 +113,15 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     private void loadItems() {
         ctx = this;
 
-        title = findViewById(R.id.title);
+        title = findViewById(R.id.titlePost);
         description = findViewById(R.id.description);
         price = findViewById(R.id.Price);
-        size = findViewById(R.id.size);
-        room = findViewById(R.id.rooms);
+        size = findViewById(R.id.sizePost);
+        room = findViewById(R.id.sizePost);
         address = findViewById(R.id.address);
         zipcode = findViewById(R.id.zipcode);
         category = findViewById(R.id.category);
-        city = findViewById(R.id.city);
+        city = findViewById(R.id.cityPost);
         mvDetails = findViewById(R.id.map);
         ivLeft = findViewById(R.id.ivLeft);
         ivRight = findViewById(R.id.ivRight);
@@ -130,7 +130,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         deletePicture = findViewById(R.id.deletePhoto);
 
         if (post.getPhotos().size() == 0) {
-            Glide.with(this).load("https://bigriverequipment.com/wp-content/uploads/2017/10/no-photo-available.png")
+            Glide.with(this).load("https://rexdalehyundai.ca/dist/img/nophoto.jpg")
                     .centerCrop()
                     .into(picture);
         } else {
@@ -219,19 +219,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 
     public void performFileSearch() {
-
-        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
-        // browser.
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 
-        // Filter to only show results that can be "opened", such as a
-        // file (as opposed to a list of contacts or timezones)
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        // Filter to show only images, using the image MIME data type.
-        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-        // To search for all documents available via installed storage providers,
-        // it would be "*/*".
         intent.setType("image/*");
 
         startActivityForResult(intent, READ_REQUEST_CODE);
@@ -275,14 +265,13 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         float latitud = Float.parseFloat(locs[0]);
         float longitud = Float.parseFloat(locs[1]);
 
-
         LatLng position = new LatLng(latitud, longitud);
         googleMap.addMarker(new MarkerOptions()
                 .position(position)
                 .title(post.getAddress())
-                .snippet("dam.javazquez.inmoapp")
+                .snippet("com.triana.salesianos.inmobilimario")
                 .draggable(true)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.location))
         );
         gMap.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
@@ -358,10 +347,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             MultipartBody.Part body =
                     MultipartBody.Part.createFormData("picture", "picture", requestFile);
 
-            RequestBody propertyId = RequestBody.create(MultipartBody.FORM, post.getId());
+            RequestBody postId = RequestBody.create(MultipartBody.FORM, post.getId());
 
             PhotoService servicePhoto = ServiceGenerator.createService(PhotoService.class, jwt, AuthType.JWT);
-            Call<PhotoUploadResponse> callPhoto = servicePhoto.upload(body, propertyId);
+            Call<PhotoUploadResponse> callPhoto = servicePhoto.upload(body, postId);
             callPhoto.enqueue(new Callback<PhotoUploadResponse>() {
                 @Override
                 public void onResponse(Call<PhotoUploadResponse> call, Response<PhotoUploadResponse> response) {
@@ -403,10 +392,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onResponse(Call<ResponseContainer<FavsResponse>> call, Response<ResponseContainer<FavsResponse>> response) {
                 if(response.isSuccessful()){
-                    for(FavsResponse propertyMine : response.body().getRows()){
-                        System.out.println(propertyMine.getId());
+                    for(FavsResponse postMine : response.body().getRows()){
+                        System.out.println(postMine.getId());
                         System.out.println(post.getId());
-                        if(propertyMine.getId().equals(post.getId())){
+                        if(postMine.getId().equals(post.getId())){
                             Log.d("ok", "ok");
                         }else{
                             /*addPicture.setImageDrawable(null);

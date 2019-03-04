@@ -10,11 +10,12 @@
     app:cardBackgroundColor="#366796">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titlePost"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -34,7 +35,7 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/pricePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -47,13 +48,13 @@
             android:textColorHint="#FFAD9E"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/province"
+            app:layout_constraintEnd_toStartOf="@+id/cityPost"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/picture"
+            app:layout_constraintTop_toBottomOf="@+id/picturePost"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/rooms"
+            android:id="@+id/sizePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -67,29 +68,29 @@
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/province"
-            app:layout_constraintTop_toBottomOf="@+id/picture" />
+            app:layout_constraintStart_toEndOf="@+id/cityPost"
+            app:layout_constraintTop_toBottomOf="@+id/picturePost" />
 
         <TextView
-            android:id="@+id/province"
+            android:id="@+id/cityPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:drawableLeft="@drawable/ic_location"
             android:drawablePadding="8dp"
-            android:hint="@string/province"
+            android:hint="@string/city"
             android:textColor="#FFAD9E"
             android:textColorHint="#FFAD9E"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rooms"
-            app:layout_constraintStart_toEndOf="@+id/price"
-            app:layout_constraintTop_toBottomOf="@+id/picture"
+            app:layout_constraintEnd_toStartOf="@+id/sizePost"
+            app:layout_constraintStart_toEndOf="@+id/pricePost"
+            app:layout_constraintTop_toBottomOf="@+id/picturePost"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/picture"
+            android:id="@+id/picturePost"
             android:layout_width="221dp"
             android:layout_height="225dp"
             android:layout_marginStart="10dp"
@@ -101,7 +102,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
             app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="TODO" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
@@ -109,6 +111,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="93dp" />
+
+        <ImageView
+            android:id="@+id/favPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/picturePost"
+            app:layout_constraintEnd_toEndOf="@+id/picturePost"
+            app:srcCompat="@drawable/ic_empty_fav" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

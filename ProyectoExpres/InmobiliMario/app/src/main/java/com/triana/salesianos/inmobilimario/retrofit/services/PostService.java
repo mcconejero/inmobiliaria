@@ -21,45 +21,42 @@ import retrofit2.http.QueryMap;
 public interface PostService {
 
     @GET("properties")
-    Call<ResponseContainer<PostResponse>> getListPost();
+    Call<ResponseContainer<PostResponse>> getListPost(@QueryMap Map<String, String> option);
 
-<<<<<<< HEAD
     @GET("posts/auth")
     Call<ResponseContainer<PostResponse>> listPostAuth(@QueryMap Map<String, String> options);
 
-    @GET("posts")
+    @GET("properties")
     Call<ResponseContainer<PostResponse>> listGeo(@Query("near") String near);
 
-    @GET("posts/mine")
+    @GET("properties/mine")
     Call<ResponseContainer<FavsResponse>> getMine();
 
-    @GET("posts/fav")
+    @GET("properties/fav")
     Call<ResponseContainer<PostResponse>> getFavs();
 
-    @GET("posts/{id}")
+    @GET("properties/{id}")
     Call<ResponseContainerTwo<PostResponse>> getOne(@Path("id") String id);
 
-    /*@POST("posts")
+    /*@POST("properties")
     Call<AddPropertyDto> create (@Body AddPropertyDto property);*/
 
-    @POST("posts/fav/{id}")
+    @POST("properties/fav/{id}")
     Call<PostResponse> addFav (@Path("id") String id);
 
-    /*@PUT("posts/{id}")
+    /*@PUT("properties/{id}")
     Call<EditPropertyDto> edit(@Path("id") String id, @Body EditPropertyDto edited);*/
 
-    @DELETE("posts/{id}")
+    @DELETE("properties/{id}")
     Call<PostResponse> delete(@Path("id") String id);
 
-    @DELETE("posts/fav/{id}")
+    @DELETE("properties/fav/{id}")
     Call<PostResponse> deleteFav(@Path("id") String id);
-=======
+
     @GET("properties/{id}")
     Call<PostResponse> onePost(@Path("id") String id);
 
     @DELETE("properties/{id}")
     Call<ResponseBody> deletePost(@Path("id") String id);
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
-
 
 }

@@ -19,7 +19,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/ivRight"
             app:layout_constraintStart_toEndOf="@+id/ivLeft"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/ivLeft"
@@ -30,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivPicture"
             app:srcCompat="@drawable/ic_left_arrow"
-            android:contentDescription="TODO" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/ivRight"
@@ -40,10 +41,11 @@
             app:layout_constraintBottom_toBottomOf="@+id/ivPicture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivPicture"
-            app:srcCompat="@drawable/ic_right_arrow" />
+            app:srcCompat="@drawable/ic_right_arrow"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titlePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -58,8 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/category"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintStart_toStartOf="@+id/titlePost"
+            app:layout_constraintTop_toBottomOf="@+id/titlePost" />
 
         <TextView
             android:id="@+id/Price"
@@ -71,7 +73,7 @@
             app:layout_constraintTop_toTopOf="@+id/category" />
 
         <TextView
-            android:id="@+id/rooms"
+            android:id="@+id/sizePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -80,13 +82,13 @@
             app:layout_constraintTop_toTopOf="@+id/Price" />
 
         <TextView
-            android:id="@+id/size"
+            android:id="@+id/sizePost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/size"
-            app:layout_constraintStart_toEndOf="@+id/rooms"
-            app:layout_constraintTop_toTopOf="@+id/rooms" />
+            app:layout_constraintStart_toEndOf="@+id/sizePost"
+            app:layout_constraintTop_toTopOf="@+id/sizePost" />
 
         <TextView
             android:id="@+id/description"
@@ -110,7 +112,7 @@
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <TextView
-            android:id="@+id/city"
+            android:id="@+id/cityPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -124,8 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/zipcode"
-            app:layout_constraintStart_toStartOf="@+id/city"
-            app:layout_constraintTop_toBottomOf="@+id/city" />
+            app:layout_constraintStart_toStartOf="@+id/cityPost"
+            app:layout_constraintTop_toBottomOf="@+id/cityPost" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map"
@@ -145,12 +147,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:srcCompat="@drawable/ic_delete"
+            app:srcCompat="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="@+id/ivPicture"
             app:layout_constraintEnd_toStartOf="@+id/ivRight"
             app:layout_constraintHorizontal_bias="0.985"
             app:layout_constraintStart_toEndOf="@+id/ivLeft"
             app:layout_constraintTop_toTopOf="@+id/ivPicture"
             app:layout_constraintVertical_bias="0.932" />
+
     </android.support.constraint.ConstraintLayout>
+
 </android.support.v4.widget.NestedScrollView>

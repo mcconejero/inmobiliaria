@@ -1,6 +1,5 @@
 package com.triana.salesianos.inmobilimario.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,11 +11,9 @@ import android.view.MenuItem;
 import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
 import com.triana.salesianos.inmobilimario.fragments.PostFragment;
-import com.triana.salesianos.inmobilimario.fragments.PostInteractionListener;
-import com.triana.salesianos.inmobilimario.fragments.ProfileFragment;
-import com.triana.salesianos.inmobilimario.fragments.ProfileInteractionListener;
+import com.triana.salesianos.inmobilimario.models.PostResponse;
 
-public class MainActivity extends AppCompatActivity implements PostInteractionListener, ProfileInteractionListener {
+public class MainActivity extends AppCompatActivity implements PostFragment.OnListFragmentInteractionListener {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -34,7 +31,10 @@ public class MainActivity extends AppCompatActivity implements PostInteractionLi
                             .replace(R.id.container, f)
                             .commit();
                     return true;
-                case R.id.navigation_map:
+                case R.id.navigation_fav:
+
+                    return true;
+                case R.id.navigation_mine:
 
                     return true;
                 case R.id.navigation_profile:
@@ -42,25 +42,15 @@ public class MainActivity extends AppCompatActivity implements PostInteractionLi
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         finish();
                     }else{
-                       f = new ProfileFragment();
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.container, f)
-                                .commit();
+                        UtilToken.setIdUser(MainActivity.this, null);
+                        UtilToken.setToken(MainActivity.this, null);
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        finish();
+                        }
                     }
                     return true;
             }
 
-            if (f != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, f)
-                        .commit();
-                return true;
-            }
-
-            return false;
-        }
     };
 
     @Override
@@ -79,22 +69,7 @@ public class MainActivity extends AppCompatActivity implements PostInteractionLi
     }
 
     @Override
-    public void deletePost(String id) {
-
-    }
-
-    @Override
-    public void logOut(String id) {
-
-    }
-
-    @Override
-    public void favourites() {
-
-    }
-
-    @Override
-    public void myPosts() {
+    public void onListFragmentInteraction(PostResponse item) {
 
     }
 }

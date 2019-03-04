@@ -1,21 +1,13 @@
 package com.triana.salesianos.inmobilimario.fragments;
 
-<<<<<<< HEAD
 import android.Manifest;
 import android.annotation.SuppressLint;
-=======
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.support.v4.app.ActivityCompat;
-=======
 import android.support.annotation.Nullable;
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,28 +17,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-<<<<<<< HEAD
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.triana.salesianos.inmobilimario.models.PostResponse;
-=======
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 import com.triana.salesianos.inmobilimario.R;
 import com.triana.salesianos.inmobilimario.UtilToken;
-import com.triana.salesianos.inmobilimario.models.PostResponse;
 import com.triana.salesianos.inmobilimario.models.ResponseContainer;
 import com.triana.salesianos.inmobilimario.retrofit.generator.AuthType;
 import com.triana.salesianos.inmobilimario.retrofit.generator.ServiceGenerator;
 import com.triana.salesianos.inmobilimario.retrofit.services.PostService;
-import com.triana.salesianos.inmobilimario.viewmodel.PostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -60,27 +44,20 @@ public class PostFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private RecyclerView recyclerView;
-<<<<<<< HEAD
     private OnListFragmentInteractionListener mListener;
     Context ctx;
-    List<PostResponse> properties = new ArrayList<>();
+    List<PostResponse> post = new ArrayList<>();
     String jwt;
     PostService service;
     MyPostRecyclerViewAdapter adapter;
     Map<String, String> options = new HashMap<>();
     FusedLocationProviderClient locationClient;
-=======
-    private List<PostResponse> postList;
-    private MyPostRecyclerViewAdapter adapter;
-    private Context ctx;
-    private PostViewModel viewModel;
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 
     public PostFragment() {
     }
 
     @SuppressLint("ValidFragment")
-    public PostFragment(Map<String,String> options) {
+    public PostFragment(Map<String, String> options) {
         this.options = options;
     }
 
@@ -106,10 +83,9 @@ public class PostFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                         Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_list, container, false);
 
-<<<<<<< HEAD
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -117,32 +93,26 @@ public class PostFragment extends Fragment {
             options.put("near", "-6.0071807999999995,37.3803677");
             options.put("max_distance","1000000000000");
             RecyclerView recyclerView = (RecyclerView) view;
-=======
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-<<<<<<< HEAD
             System.out.println(getCurrentLocation(context));
 
             if (jwt == null) {
                 service = ServiceGenerator.createService(PostService.class);
 
-                Call<ResponseContainer<PostResponse>> call = service.listPost(options);
+                Call<ResponseContainer<PostResponse>> call = service.getListPost(options);
                 call.enqueue(new Callback<ResponseContainer<PostResponse>>() {
                     @Override
                     public void onResponse(Call<ResponseContainer<PostResponse>> call, Response<ResponseContainer<PostResponse>> response) {
                         if (response.code() != 200) {
                             Toast.makeText(getActivity(), "Error in request", Toast.LENGTH_SHORT).show();
                         } else {
-                            properties = response.body().getRows();
+                            post = response.body().getRows();
 
-                            adapter = new MyPostRecyclerViewAdapter(context, properties, mListener);
+                            adapter = new MyPostRecyclerViewAdapter(context, post, mListener);
                             recyclerView.setAdapter(adapter);
 
                         }
@@ -165,9 +135,9 @@ public class PostFragment extends Fragment {
                         if (response.code() != 200) {
                             Toast.makeText(getActivity(), "Error in request", Toast.LENGTH_SHORT).show();
                         } else {
-                            properties = response.body().getRows();
+                            post = response.body().getRows();
 
-                            adapter = new MyPostRecyclerViewAdapter(context, properties, mListener);
+                            adapter = new MyPostRecyclerViewAdapter(context, post, mListener);
                             recyclerView.setAdapter(adapter);
 
                         }
@@ -180,26 +150,11 @@ public class PostFragment extends Fragment {
                     }
                 });
             }
-=======
-            postList = new ArrayList<>();
-            adapter = new MyPostRecyclerViewAdapter(getActivity(), postList, mListener, R.layout.fragment_post);
-            recyclerView.setAdapter(adapter);
-            throwViewModel();
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         }
 
         return view;
-}
-
-    private void throwViewModel() {
-        viewModel = ViewModelProviders.of(getActivity()).get(PostViewModel.class);
-        viewModel.getListPosts().observe(getActivity(), new Observer<List<PostResponse>>() {
-            @Override
-            public void onChanged(@Nullable List<PostResponse> posts) {
-                adapter.setNewPosts(posts);
-            }
-        });
     }
+
 
     @Override
     public void onAttach (Context context){
@@ -218,7 +173,6 @@ public class PostFragment extends Fragment {
         mListener = null;
     }
 
-<<<<<<< HEAD
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(PostResponse item);
@@ -244,7 +198,4 @@ public class PostFragment extends Fragment {
 
         return currentLoc[0];
     }
-
-=======
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 }

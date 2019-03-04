@@ -3,36 +3,33 @@ package com.triana.salesianos.inmobilimario.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-<<<<<<< HEAD
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-=======
-import java.util.Locale;
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
 
-public class PostResponse {
+public class PostResponse implements Serializable {
 
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("ownerId")
+    @Expose
+    private User ownerId;
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("photos")
-    @Expose
-    private String[] photos;
     @SerializedName("description")
     @Expose
     private String description;
     @SerializedName("price")
     @Expose
-    private double price;
+    private long price;
     @SerializedName("rooms")
     @Expose
-    private int rooms;
+    private long rooms;
     @SerializedName("size")
     @Expose
-    private double size;
+    private long size;
     @SerializedName("categoryId")
     @Expose
     private CategoryResponse categoryId;
@@ -67,14 +64,10 @@ public class PostResponse {
     public PostResponse() {
     }
 
-<<<<<<< HEAD
-    public PostResponse(String id, String title, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt, List<String> favs, List<String> photos) {
-=======
-    public PostResponse(String id, String title, String[] photos, String description, double price, int rooms, double size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt) {
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
+    public PostResponse(String id, User ownerId, String title, String description, long price, long rooms, long size, CategoryResponse categoryId, String address, String zipcode, String city, String province, String loc, String createdAt, String updatedAt, List<String> favs, List<String> photos) {
         this.id = id;
+        this.ownerId = ownerId;
         this.title = title;
-        this.photos = photos;
         this.description = description;
         this.price = price;
         this.rooms = rooms;
@@ -85,8 +78,6 @@ public class PostResponse {
         this.city = city;
         this.province = province;
         this.loc = loc;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.favs = favs;
         this.photos = photos;
     }
@@ -99,17 +90,20 @@ public class PostResponse {
         this.id = id;
     }
 
+    public User getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(User ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setRooms(long rooms) {
+        this.rooms = rooms;
+    }
+
     public String getTitle() {
         return title;
-    }
-
-    public String[] getPhotos() {
-        return photos;
-    }
-
-    public PostResponse setPhotos(String[] photos) {
-        this.photos = photos;
-        return this;
     }
 
     public void setTitle(String title) {
@@ -124,15 +118,15 @@ public class PostResponse {
         this.description = description;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
-    public int getRooms() {
+    public long getRooms() {
         return rooms;
     }
 
@@ -140,11 +134,11 @@ public class PostResponse {
         this.rooms = rooms;
     }
 
-    public double getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(double size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
@@ -152,13 +146,8 @@ public class PostResponse {
         return categoryId;
     }
 
-<<<<<<< HEAD
     public void setCategoryId(CategoryResponse categoryId) {
-=======
-    public PostResponse setCategoryId(CategoryResponse categoryId) {
->>>>>>> b0d635f599e5af8c945e3afd1296b091c4fc0301
         this.categoryId = categoryId;
-        return this;
     }
 
     public String getAddress() {
